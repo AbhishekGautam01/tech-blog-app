@@ -1,5 +1,6 @@
 import { Card } from 'react-bootstrap';
 import { CardSubtitle } from 'react-bootstrap/Card';
+import Link from 'next/Link';
 const CardItem = ({
   title,
   subtitle,
@@ -7,6 +8,7 @@ const CardItem = ({
   coverImage,
   author,
   authorImage,
+  link,
 }) => {
   return (
     <Card className={`fj-card`}>
@@ -32,7 +34,11 @@ const CardItem = ({
           <Card.Text>{subtitle}</Card.Text>
         </Card.Body>
       </div>
-      <a className="card-button">Read More</a>
+      {link && (
+        <Link href={link.href} as={link.as}>
+          <a className="card-button">Read More</a>
+        </Link>
+      )}
     </Card>
   );
 };

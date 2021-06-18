@@ -24,6 +24,10 @@ export default function Home({ blogs }) {
               authorImage={
                 blog.author?.avatar || 'https://via.placeholder.com/150'
               }
+              link={{
+                href: '/blog/[slug]',
+                as: `/blog/${blog.slug}`,
+              }}
             />
           </Col>
         ))}
