@@ -1,13 +1,15 @@
 import BlockContent from '@sanity/block-content-to-react';
-
+import HighlightCode from './HighlightCode';
 const serializers = {
   types: {
-    code: (props) => (
-      <pre data-language={props.node.language}>
-        <code>{props.node.code}</code>
-        <p>{props.node.filename}</p>
-      </pre>
-    ),
+    code: ({ node: { language, code, filename } }) => {
+      return (
+        <HighlightCode language={language}>
+          {code}
+          <div className="code-filename">{filename}</div>
+        </HighlightCode>
+      );
+    },
   },
 };
 
