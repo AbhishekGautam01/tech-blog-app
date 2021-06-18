@@ -8,11 +8,21 @@ export default function PageLayout({ children, className }) {
       <div className="page-wrapper">{children}</div>
       <footer className={`page-footer ${className}`}>
         <div>
-          <a href="#">courses</a>
+          <a
+            href="https://github.com/AbhishekGautam01/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Github
+          </a>
           {' | '}
-          <a href="#">github</a>
-          {' | '}
-          <a href="#">facebook</a>
+          <a
+            href="https://www.linkedin.com/in/abhishek-gautam-se/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
         </div>
       </footer>
     </Container>
