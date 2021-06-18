@@ -1,4 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'styles/index.scss';
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default ({ Component, pageProps }) => <Component {...pageProps} />;
+export default function app({ Component, pageProps }) {
+  return <Component {...pageProps} />;
+}

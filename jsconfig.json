@@ -1,0 +1,5 @@
+{
+  "compilerOptions": {
+    "baseUrl": "." //setting base url for imports to root directory of project
+  }
+}
