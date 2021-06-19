@@ -1,6 +1,6 @@
 import PageLayout from 'components/PageLayout';
 import BlogHeader from 'components/BlogHeader';
-import { getBlogBySlug, getPaginatedBlogs } from 'lib/api';
+import { getBlogBySlug, getAllBlogs } from 'lib/api';
 import { Row, Col } from 'react-bootstrap';
 import BlogContent from 'components/BlogContent';
 import { urlFor } from 'lib/api';
@@ -45,7 +45,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
+  const blogs = await getAllBlogs();
   const paths = blogs?.map((blog) => {
     return {
       params: {
