@@ -1,6 +1,6 @@
 import { Card } from 'react-bootstrap';
 import { CardSubtitle } from 'react-bootstrap/Card';
-import Link from 'next/Link';
+import Link from 'next/link';
 import { urlFor } from 'lib/api';
 const CardItem = ({
   title,
