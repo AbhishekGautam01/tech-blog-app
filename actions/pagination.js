@@ -6,6 +6,8 @@ import { Col } from 'react-bootstrap';
 import { useEffect } from 'react';
 import CardItemBlank from 'components/CardItemBlank';
 import CardListItemBlank from 'components/CardListItemBlank';
+import moment from 'moment';
+
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
     window.__pagination__init = true;
@@ -43,7 +45,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
             <CardListItem
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format('LLL')}
               author={blog.author?.name || 'Anonymous'}
               authorImage={
                 blog.author?.avatar || 'https://via.placeholder.com/150'
@@ -59,7 +61,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
             <CardItem
               title={blog.title}
               subtitle={blog.subtitle}
-              date={blog.date}
+              date={moment(blog.date).format('LLL')}
               coverImage={blog.coverImage}
               author={blog.author?.name || 'Anonymous'}
               authorImage={
