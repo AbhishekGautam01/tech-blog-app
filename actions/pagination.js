@@ -3,27 +3,55 @@ import { useGetBlogs } from 'actions';
 import CardItem from 'components/CardItem';
 import CardListItem from 'components/CardListItem';
 import { Col } from 'react-bootstrap';
-import { useEffect } from 'react';
 import CardItemBlank from 'components/CardItemBlank';
 import CardListItemBlank from 'components/CardListItemBlank';
 import moment from 'moment';
 
-export const useGetBlogsPages = ({ blogs, filter }) => {
-  useEffect(() => {
-    window.__pagination__init = true;
-  }, []);
+const BlogList = ({ blogs, filter }) => {
+  return blogs.map((blog) =>
+    filter.view.list ? (
+      <Col key={`${blog.slug}-list`} md="10">
+        <CardListItem
+          title={blog.title}
+          subtitle={blog.subtitle}
+          date={moment(blog.date).format('LLL')}
+          author={blog.author?.name || 'Anonymous'}
+          authorImage={blog.author?.avatar || 'https://via.placeholder.com/150'}
+          link={{
+            href: '/blog/[slug]',
+            as: `/blog/${blog.slug}`,
+          }}
+        />
+      </Col>
+    ) : (
+      <Col key={blog.slug} md="4">
+        <CardItem
+          title={blog.title}
+          subtitle={blog.subtitle}
+          date={moment(blog.date).format('LLL')}
+          coverImage={blog.coverImage}
+          author={blog.author?.name || 'Anonymous'}
+          authorImage={blog.author?.avatar || 'https://via.placeholder.com/150'}
+          link={{
+            href: '/blog/[slug]',
+            as: `/blog/${blog.slug}`,
+          }}
+        />
+      </Col>
+    )
+  );
+};
 
+export const useGetBlogsPages = ({ blogs, filter }) => {
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {
-      let initialData = !offset && blogs;
-
-      if (typeof windows !== 'undefined' && window.__pagination__init) {
-        initialData = null;
-      }
-      const { data: paginatedBlogs } = withSWR(
-        useGetBlogs({ offset, filter }, initialData)
+      const { data: paginatedBlogs, error } = withSWR(
+        useGetBlogs({ offset, filter })
       );
+      if (!offset && !paginatedBlogs && !error) {
+        return <BlogList blogs={blogs} filter={filter} />;
+      }
       if (!paginatedBlogs) {
         return Array(3)
           .fill(0)
@@ -39,42 +67,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
             )
           );
       }
-      return paginatedBlogs.map((blog) =>
-        filter.view.list ? (
-          <Col key={`${blog.slug}-list`} md="10">
-            <CardListItem
-              title={blog.title}
-              subtitle={blog.subtitle}
-              date={moment(blog.date).format('LLL')}
-              author={blog.author?.name || 'Anonymous'}
-              authorImage={
-                blog.author?.avatar || 'https://via.placeholder.com/150'
-              }
-              link={{
-                href: '/blog/[slug]',
-                as: `/blog/${blog.slug}`,
-              }}
-            />
-          </Col>
-        ) : (
-          <Col key={blog.slug} md="4">
-            <CardItem
-              title={blog.title}
-              subtitle={blog.subtitle}
-              date={moment(blog.date).format('LLL')}
-              coverImage={blog.coverImage}
-              author={blog.author?.name || 'Anonymous'}
-              authorImage={
-                blog.author?.avatar || 'https://via.placeholder.com/150'
-              }
-              link={{
-                href: '/blog/[slug]',
-                as: `/blog/${blog.slug}`,
-              }}
-            />
-          </Col>
-        )
-      );
+      return <BlogList blogs={paginatedBlogs} filter={filter} />;
     },
     // here you will compute offset that will get passed into previous callback function
     // SWR: data you will get from 'withSWR' and index is number of current page
