@@ -1,4 +1,4 @@
-import { Row } from 'react-bootstrap';
+import { Row, Button } from 'react-bootstrap';
 import PageLayout from 'components/PageLayout';
 import AuthorInfo from 'components/AuthorIntro';
 import { useGetBlogsPages } from 'actions/pagination';
@@ -26,6 +26,22 @@ export default function Home({ blogs }) {
       />
       <hr />
       <Row className="mb-5">{pages}</Row>
+      {
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            variant="outline-secondary"
+            size="lg"
+            onClick={loadMore}
+            disabled={isReachingEnd || isLoadingMore}
+          >
+            {isLoadingMore
+              ? '...'
+              : isReachingEnd
+              ? 'No More Blogs'
+              : 'More Blogs'}
+          </Button>
+        </div>
+      }
     </PageLayout>
   );
 }

@@ -8,7 +8,7 @@ export const useGetBlogsPages = ({ blogs: initialData, filter }) => {
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {
-      const { data: blogs } = withSWR(useGetBlogs(initialData));
+      const { data: blogs } = withSWR(useGetBlogs({ initialData, offset }));
       console.log(filter);
       if (!blogs) return 'Loading!';
       return blogs.map((blog) =>
@@ -51,7 +51,10 @@ export const useGetBlogsPages = ({ blogs: initialData, filter }) => {
     // here you will compute offset that will get passed into previous callback function
     // SWR: data you will get from 'withSWR' and index is number of current page
     (SWR, index) => {
-      return 0;
+      if (SWR.data && SWR.data.length === 0) {
+        return null;
+      }
+      return (index + 1) * 3;
     },
     [filter.view.list]
   );

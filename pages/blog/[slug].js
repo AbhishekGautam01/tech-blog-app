@@ -32,7 +32,7 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({ offset: 0 });
   const paths = blogs?.map((blog) => {
     return {
       params: {
