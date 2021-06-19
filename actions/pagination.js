@@ -5,7 +5,7 @@ import CardListItem from 'components/CardListItem';
 import { Col } from 'react-bootstrap';
 import { useEffect } from 'react';
 import CardItemBlank from 'components/CardItemBlank';
-
+import CardListItemBlank from 'components/CardListItemBlank';
 export const useGetBlogsPages = ({ blogs, filter }) => {
   useEffect(() => {
     window.__pagination__init = true;
@@ -22,14 +22,21 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       const { data: paginatedBlogs } = withSWR(
         useGetBlogs({ offset, filter }, initialData)
       );
-      if (!paginatedBlogs)
+      if (!paginatedBlogs) {
         return Array(3)
           .fill(0)
-          .map((_, i) => (
-            <Col key={i} md="4">
-              <CardItemBlank />
-            </Col>
-          ));
+          .map((_, i) =>
+            filter.view.list ? (
+              <Col key={i} md="9">
+                <CardListItemBlank mode="placeholder" />
+              </Col>
+            ) : (
+              <Col key={`${i}-item`} md="4">
+                <CardItemBlank />
+              </Col>
+            )
+          );
+      }
       return paginatedBlogs.map((blog) =>
         filter.view.list ? (
           <Col key={`${blog.slug}-list`} md="10">
@@ -73,7 +80,7 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       if (SWR.data && SWR.data.length === 0) {
         return null;
       }
-      return (index + 1) * 3;
+      return (index + 1) * 6;
     },
     [filter.view.list, filter.date.asc]
   );
