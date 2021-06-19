@@ -3,7 +3,7 @@ import PageLayout from 'components/PageLayout';
 import AuthorInfo from 'components/AuthorIntro';
 import { useGetBlogsPages } from 'actions/pagination';
 import FilteringMenu from 'components/FilteringMenu';
-import { getAllBlogs } from 'lib/api';
+import { getPaginatedBlogs } from 'lib/api';
 import { useState } from 'react';
 
 export default function Home({ blogs }) {
@@ -49,7 +49,7 @@ export default function Home({ blogs }) {
 
 // This function is called during the build i.e always called on server and never on client and provides props to your page and it will create static page.
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0, date: 'desc' });
+  const blogs = await getPaginatedBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
