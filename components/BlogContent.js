@@ -15,13 +15,13 @@ const serializers = {
     image: ({ node: { asset, alt, position = 'center' } }) => {
       let styles = {};
       if (position === 'left') {
-        styles.float = position;
+        styles.textAlign = position;
         styles.marginLeft = '30px';
       } else if (position === 'right') {
-        styles.float = position;
+        styles.textAlign = position;
         styles.marginRight = '30px';
       } else {
-        styles.float = position;
+        styles.textAlign = position;
       }
       return (
         <div className="block-image" style={{ ...styles }}>

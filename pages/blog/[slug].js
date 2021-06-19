@@ -9,7 +9,9 @@ import { useRouter } from 'next/router';
 import ErrorPage from 'next/error';
 import PreviewAlert from 'components/PreviewAlert';
 const BlogDetail = ({ blog, preview }) => {
+  debugger;
   const router = useRouter();
+  console.log(blog);
   if (!router.isFallback && !blog?.slug) {
     return <ErrorPage statusCode="404" />;
   }
