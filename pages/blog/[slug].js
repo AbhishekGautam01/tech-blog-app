@@ -52,6 +52,7 @@ export async function getStaticPaths() {
       params: {
         slug: blog.slug,
       },
+      revalidate: 1,
     };
   });
   return {
