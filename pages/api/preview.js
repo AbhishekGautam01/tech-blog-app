@@ -6,7 +6,7 @@ export default async function enablePreview(req, res) {
 
   const blog = await getBlogBySlug(req.query.slug);
   if (!blog) return res.status(401).json({ message: 'Invalid Slug' });
-  res.setPreviewData({ message: 'Hello World' });
+  res.setPreviewData({});
   res.writeHead(307, { Location: `/blog/${blog.slug}` });
   res.end();
 }
