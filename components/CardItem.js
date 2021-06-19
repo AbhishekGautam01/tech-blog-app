@@ -47,13 +47,7 @@ const CardItem = ({
             <div className="image-placeholder" />
           ) : (
             coverImage && (
-              <Card.Img
-                src={urlFor(coverImage)
-                  .height(300)
-                  .crop('center')
-                  .fit('clip')
-                  .url()}
-              />
+              <Card.Img src={urlFor(coverImage).height(300).url()} />
             )
           )}
         </div>
@@ -64,8 +58,12 @@ const CardItem = ({
           </Card.Body>
         ) : (
           <Card.Body>
-            <Card.Title className="card-main-title">{title}</Card.Title>
-            <Card.Text>{subtitle}</Card.Text>
+            <Card.Title className="card-main-title">
+              {title.length > 40 ? subtitle.substr(0, 40) + '...' : title}
+            </Card.Title>
+            <Card.Text>
+              {subtitle.length > 40 ? subtitle.substr(0, 40) + '...' : subtitle}
+            </Card.Text>
           </Card.Body>
         )}
       </div>

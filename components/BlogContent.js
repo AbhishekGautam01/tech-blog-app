@@ -25,7 +25,7 @@ const serializers = {
       }
       return (
         <div className="block-image" style={{ ...styles }}>
-          <img src={urlFor(asset.url).height(300).fit('max')} />
+          <img src={urlFor(asset.url).height(600).fit('max')} />
           <div className="image-alt">{alt}</div>
         </div>
       );
