@@ -175,6 +175,9 @@ body {
     }
   }
 
+  .clickable:hover {
+    cursor: pointer;
+  }
   .fj-dropdown-menu {
     .fj-dropdown-item {
       color: #4e4e4e;

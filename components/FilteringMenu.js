@@ -1,9 +1,22 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const FilteringMenu = ({ onChange, filter }) => {
   return (
     <div className="filtering-menu mb-2">
-      <div onClick={() => onChange('view', { list: !filter.view.list })}>
-        List Filter
-      </div>
+      {filter.view.list ? (
+        <FontAwesomeIcon
+          className="clickable hoverable"
+          size="2x"
+          icon="border-all"
+          onClick={() => onChange('view', { list: !filter.view.list })}
+        />
+      ) : (
+        <FontAwesomeIcon
+          className="clickable hoverable"
+          size="2x"
+          icon="list"
+          onClick={() => onChange('view', { list: !filter.view.list })}
+        />
+      )}
     </div>
   );
 };
