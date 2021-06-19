@@ -6,10 +6,15 @@ import CardListItem from 'components/CardListItem';
 import FilteringMenu from 'components/FilteringMenu';
 import { getAllBlogs } from 'lib/api';
 import { useState } from 'react';
-export default function Home({ blogs }) {
+import { useGetBlogs } from 'actions';
+
+export default function Home({ blogs: initialData }) {
   const [filter, setFilter] = useState({
     view: { list: false },
   });
+
+  const { data: blogs, error } = useGetBlogs(initialData);
+
   return (
     <PageLayout>
       <AuthorInfo />
@@ -64,7 +69,7 @@ export default function Home({ blogs }) {
 
 // This function is called during the build i.e always called on server and never on client and provides props to your page and it will create static page.
 export async function getStaticProps() {
-  const blogs = await getAllBlogs();
+  const blogs = await getAllBlogs({ offset: 0 });
   return {
     props: {
       blogs,
