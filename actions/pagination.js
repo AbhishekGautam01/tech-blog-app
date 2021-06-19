@@ -14,7 +14,7 @@ const BlogList = ({ blogs, filter }) => {
         <CardListItem
           title={blog.title}
           subtitle={blog.subtitle}
-          date={moment(blog.date).format('LLL')}
+          date={moment(blog.date).format('LL')}
           author={blog.author?.name || 'Anonymous'}
           authorImage={blog.author?.avatar || 'https://via.placeholder.com/150'}
           link={{
@@ -28,7 +28,7 @@ const BlogList = ({ blogs, filter }) => {
         <CardItem
           title={blog.title}
           subtitle={blog.subtitle}
-          date={moment(blog.date).format('LLL')}
+          date={moment(blog.date).format('LL')}
           coverImage={blog.coverImage}
           author={blog.author?.name || 'Anonymous'}
           authorImage={blog.author?.avatar || 'https://via.placeholder.com/150'}
