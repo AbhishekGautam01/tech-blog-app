@@ -3,14 +3,23 @@ import { useGetBlogs } from 'actions';
 import CardItem from 'components/CardItem';
 import CardListItem from 'components/CardListItem';
 import { Col } from 'react-bootstrap';
+import { useEffect } from 'react';
 
 export const useGetBlogsPages = ({ blogs, filter }) => {
+  useEffect(() => {
+    window.__pagination__init = true;
+  }, []);
+
   return useSWRPages(
     'index-page',
     ({ offset, withSWR }) => {
       let initialData = !offset && blogs;
+
+      if (typeof windows !== 'undefined' && window.__pagination__init) {
+        initialData = null;
+      }
       const { data: paginatedBlogs } = withSWR(
-        useGetBlogs({ offset }, initialData)
+        useGetBlogs({ offset, filter }, initialData)
       );
       if (!paginatedBlogs) return 'Loading!';
       return paginatedBlogs.map((blog) =>
@@ -58,6 +67,6 @@ export const useGetBlogsPages = ({ blogs, filter }) => {
       }
       return (index + 1) * 3;
     },
-    [filter.view.list]
+    [filter.view.list, filter.date.asc]
   );
 };

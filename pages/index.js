@@ -9,6 +9,7 @@ import { useState } from 'react';
 export default function Home({ blogs }) {
   const [filter, setFilter] = useState({
     view: { list: false },
+    date: { asc: false },
   });
   const { pages, isLoadingMore, isReachingEnd, loadMore } = useGetBlogsPages({
     blogs,
@@ -48,7 +49,7 @@ export default function Home({ blogs }) {
 
 // This function is called during the build i.e always called on server and never on client and provides props to your page and it will create static page.
 export async function getStaticProps() {
-  const blogs = await getAllBlogs({ offset: 0 });
+  const blogs = await getAllBlogs({ offset: 0, date: 'desc' });
   return {
     props: {
       blogs,
